@@ -1,11 +1,11 @@
 var genericCode = {
 
-    // 🔹 Get form context safely
+    //  Get form context safely
     getFormContext: function (executionContext) {
         return executionContext.getFormContext();
     },
 
-    // 🔹 Get value (auto handle type)
+    //  Get value (auto handle type)
     getValue: function (executionContext, fieldName) {
         var formContext = genericCode.getFormContext(executionContext);
         var attr = formContext.getAttribute(fieldName);
@@ -35,7 +35,7 @@ var genericCode = {
         }
     },
 
-    // 🔹 Set value (auto handle type)
+    //  Set value (auto handle type)
     setValue: function (executionContext, fieldName, value) {
         var formContext = genericCode.getFormContext(executionContext);
         var attr = formContext.getAttribute(fieldName);
@@ -53,25 +53,25 @@ var genericCode = {
         attr.setSubmitMode("always");
     },
 
-    // 🔹 Set field visibility (generic)
+    //  Set field visibility (generic)
     setFieldVisibility: function (executionContext, fieldName, isVisible) {
         var control = genericCode.getFormContext(executionContext).getControl(fieldName);
         if (control) control.setVisible(isVisible);
     },
 
-    // 🔹 Disable/Enable field
+    //  Disable/Enable field
     setFieldDisabled: function (executionContext, fieldName, isDisabled) {
         var control = genericCode.getFormContext(executionContext).getControl(fieldName);
         if (control) control.setDisabled(isDisabled);
     },
 
-    // 🔹 Set required level
+    //  Set required level
     setRequiredLevel: function (executionContext, fieldName, level) {
         var attr = genericCode.getFormContext(executionContext).getAttribute(fieldName);
         if (attr) attr.setRequiredLevel(level); // "none", "required", "recommended"
     },
 
-    // 🔹 Show form notification
+    //  Show form notification
     showFormNotification: function (executionContext, message, level = "INFO", id = "formNotif") {
         genericCode.getFormContext(executionContext).ui.setFormNotification(message, level, id);
     },
@@ -80,7 +80,7 @@ var genericCode = {
         genericCode.getFormContext(executionContext).ui.clearFormNotification(id);
     },
 
-    // 🔹 Show field-level notification
+    //  Show field-level notification
     showFieldNotification: function (executionContext, fieldName, message, id = "fieldNotif") {
         genericCode.getFormContext(executionContext).getControl(fieldName)?.setNotification(message, id);
     },
@@ -89,19 +89,19 @@ var genericCode = {
         genericCode.getFormContext(executionContext).getControl(fieldName)?.clearNotification(id);
     },
 
-    // 🔹 Prevent form save with alert
+    //  Prevent form save with alert
     preventSave: function (executionContext, message) {
         let args = executionContext.getEventArgs();
         args.preventDefault();
         alert(message);
     },
 
-    // 🔹 Format date yyyy-MM-dd
+    //  Format date yyyy-MM-dd
     formatDate: function (date) {
         return date?.toISOString()?.split("T")[0] ?? null;
     },
 
-    // 🔹 Get current user info
+    //  Get current user info
     getCurrentUser: function () {
         let userSettings = Xrm.Utility.getGlobalContext().userSettings;
         return {
@@ -110,7 +110,7 @@ var genericCode = {
         };
     },
 
-    // 🔹 Set field to current user
+    //  Set field to current user
     setCurrentUserToLookup: function (executionContext, fieldName) {
         var formContext = genericCode.getFormContext(executionContext);
         var user = genericCode.getCurrentUser();
