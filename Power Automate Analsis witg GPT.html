@@ -1,0 +1,239 @@
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide: Simplify Power Automate Flow Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Stone, Sky Blue) -->
+    <!-- Application Structure Plan: A single-page, vertical-scrolling interactive guide. The structure follows a logical learning path: introduction to the problem/solution, motivation (the "Why"), an interactive tabbed section for the "How" (separating standard and advanced methods for clarity), practical applications, and a final visual summary. This structure was chosen to make a technical process feel less intimidating and more explorable, allowing users to focus on the sections most relevant to them without being overwhelmed. -->
+    <!-- Visualization & Content Choices: The core of the guide is textual, so the primary goal is organization and clarity. Report Info: Step-by-step methods -> Goal: Organize/Instruct -> Viz/Method: Interactive Tabs -> Interaction: Click to reveal content -> Justification: Separates two distinct methods, reducing cognitive load. Report Info: Core process -> Goal: Summarize -> Viz/Method: HTML/CSS Flowchart -> Interaction: None -> Justification: Provides a quick, visual reinforcement of the entire concept. Report Info: Benefits/Applications -> Goal: Inform -> Viz/Method: Styled Cards -> Interaction: Hover effects -> Justification: More visually engaging than a simple list. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .tab-active {
+            background-color: #0284c7; /* sky-600 */
+            color: #ffffff;
+            border-color: #0284c7; /* sky-600 */
+        }
+        .tab-inactive {
+            background-color: #ffffff;
+            color: #475569; /* slate-600 */
+            border-color: #cbd5e1; /* slate-300 */
+        }
+        .flow-step {
+            transition: all 0.3s ease-in-out;
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            line-height: 1;
+            color: #94a3b8; /* slate-400 */
+        }
+        .code-block {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #475569; /* slate-600 */
+            color: #ffffff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .copy-btn:hover {
+            background-color: #334155; /* slate-700 */
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container mx-auto px-4 py-8 md:py-16 max-w-5xl">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12 md:mb-20">
+            <h1 class="text-4xl md:text-5xl font-bold text-sky-700 mb-4">💡 Simplify Flow Analysis</h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
+                Tired of untangling complex Power Automate flows? Discover a smarter, faster way to analyze and document your logic using GPT and JSON extraction.
+            </p>
+        </header>
+
+        <!-- Why This Helps Section -->
+        <section id="why" class="mb-12 md:mb-20">
+            <h2 class="text-3xl font-bold text-center mb-8 text-slate-700">Why You'll Love This Method</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 text-center">
+                    <div class="text-4xl mb-3">⏱️</div>
+                    <h3 class="font-semibold text-lg mb-2">Saves Time</h3>
+                    <p class="text-slate-600 text-sm">Drastically cut down on the manual effort of clicking through each step.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 text-center">
+                    <div class="text-4xl mb-3">🔍</div>
+                    <h3 class="font-semibold text-lg mb-2">Improves Clarity</h3>
+                    <p class="text-slate-600 text-sm">Get a plain-English explanation of logic, conditions, and data paths.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 text-center">
+                    <div class="text-4xl mb-3">🤝</div>
+                    <h3 class="font-semibold text-lg mb-2">Smoother Collaboration</h3>
+                    <p class="text-slate-600 text-sm">Makes handovers and team reviews significantly more efficient.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 text-center">
+                    <div class="text-4xl mb-3">🎓</div>
+                    <h3 class="font-semibold text-lg mb-2">Better Onboarding</h3>
+                    <p class="text-slate-600 text-sm">Perfect for training new developers on existing or legacy flows.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How-To Section with Interactive Tabs -->
+        <section id="how-to" class="mb-12 md:mb-20">
+            <h2 class="text-3xl font-bold text-center mb-8 text-slate-700">How to Analyze Your Flow</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">
+                This section provides two ways to get your flow's underlying JSON definition. The Standard Method is great for anyone, while the Advanced Method is a shortcut for admins and makers comfortable with APIs.
+            </p>
+            <div class="flex justify-center mb-6 border-b border-slate-300">
+                <button id="tab-standard" class="tab-btn tab-active py-2 px-6 font-semibold border-b-2 transition-colors duration-300">Standard Method</button>
+                <button id="tab-advanced" class="tab-btn tab-inactive py-2 px-6 font-semibold border-b-2 transition-colors duration-300">Advanced Method</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="content-standard" class="tab-content bg-white p-6 md:p-8 rounded-lg shadow-lg border border-slate-200">
+                <h3 class="font-bold text-xl mb-4 text-sky-700">Standard Method: The Solution Export</h4>
+                <div class="space-y-4 text-slate-700">
+                    <p><span class="font-bold bg-sky-100 text-sky-800 rounded-full h-8 w-8 inline-flex items-center justify-center mr-3">1</span> Add your Power Automate flow into a Solution.</p>
+                    <p><span class="font-bold bg-sky-100 text-sky-800 rounded-full h-8 w-8 inline-flex items-center justify-center mr-3">2</span> Export the entire Solution as a <code class="bg-slate-200 px-1 rounded">.zip</code> file.</p>
+                    <p><span class="font-bold bg-sky-100 text-sky-800 rounded-full h-8 w-8 inline-flex items-center justify-center mr-3">3</span> Unzip the file, navigate to the <code class="bg-slate-200 px-1 rounded">/Workflows/</code> folder, and open the flow's <code class="bg-slate-200 px-1 rounded">.json</code> file.</p>
+                    <p><span class="font-bold bg-sky-100 text-sky-800 rounded-full h-8 w-8 inline-flex items-center justify-center mr-3">4</span> Copy the JSON content and paste it into a GPT tool with a prompt like: <em class="italic">“Explain the logic of this Power Automate flow step by step.”</em></p>
+                    <p><span class="font-bold bg-sky-100 text-sky-800 rounded-full h-8 w-8 inline-flex items-center justify-center mr-3">5</span> Receive a clean, readable analysis of your flow's logic!</p>
+                </div>
+            </div>
+
+            <div id="content-advanced" class="tab-content hidden bg-white p-6 md:p-8 rounded-lg shadow-lg border border-slate-200">
+                 <h3 class="font-bold text-xl mb-4 text-sky-700">Advanced Method: Direct API Query</h4>
+                 <p class="mb-4 text-slate-700">If you have admin/maker permissions, you can query the Dataverse API directly to get the flow definition without exporting anything.</p>
+                 <p class="mb-2 text-slate-700">Use this OData endpoint, replacing the placeholders:</p>
+                 <div class="code-block">
+                     <pre id="api-endpoint">https://&lt;your-org&gt;.crm.dynamics.com/api/data/v9.2/workflows?$filter=category eq 5 and workflowid eq &lt;flow-id&gt;</pre>
+                     <button id="copy-btn" class="copy-btn">Copy</button>
+                 </div>
+                 <p class="mt-4 text-slate-700">The <code class="bg-slate-200 px-1 rounded">clientdata</code> field in the JSON response contains the entire flow definition you need.</p>
+            </div>
+        </section>
+        
+        <!-- Process Visualization -->
+        <section id="process" class="mb-12 md:mb-20">
+            <h2 class="text-3xl font-bold text-center mb-8 text-slate-700">The Process at a Glance</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center">
+                <div class="flow-step bg-white p-4 rounded-lg shadow-md border border-slate-200 w-48">
+                    <div class="text-3xl mb-2">🧩</div>
+                    <h4 class="font-semibold">Complex Flow</h4>
+                </div>
+                <div class="flow-arrow transform md:-rotate-0">➡️</div>
+                <div class="flow-step bg-white p-4 rounded-lg shadow-md border border-slate-200 w-48">
+                    <div class="text-3xl mb-2">📄</div>
+                    <h4 class="font-semibold">JSON Extraction</h4>
+                </div>
+                <div class="flow-arrow transform md:-rotate-0">➡️</div>
+                <div class="flow-step bg-white p-4 rounded-lg shadow-md border border-slate-200 w-48">
+                    <div class="text-3xl mb-2">🤖</div>
+                    <h4 class="font-semibold">GPT Analysis</h4>
+                </div>
+                <div class="flow-arrow transform md:-rotate-0">➡️</div>
+                <div class="flow-step bg-green-50 text-green-800 p-4 rounded-lg shadow-md border border-green-200 w-48">
+                    <div class="text-3xl mb-2">💡</div>
+                    <h4 class="font-semibold">Simple Explanation</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applications Section -->
+        <section id="applications" class="mb-12 md:mb-20">
+            <h2 class="text-3xl font-bold text-center mb-8 text-slate-700">Supercharge Your Workflow</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">
+                This technique isn't just for one-off analysis. Integrate it into your development lifecycle to build more robust and maintainable automations.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                    <h3 class="font-semibold text-lg mb-2">📄 Effortless Documentation</h3>
+                    <p class="text-slate-600">Include GPT-generated logic steps directly in your Technical Design Documents (TDD) for unparalleled clarity.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                    <h3 class="font-semibold text-lg mb-2">🔐 Traceable Audits</h3>
+                    <p class="text-slate-600">Keep a clear, human-readable record of your flow's architecture for easy reviews and compliance checks.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                    <h3 class="font-semibold text-lg mb-2">✅ Validate with Speed</h3>
+                    <p class="text-slate-600">Quickly confirm if recent changes have impacted the flow's intended logic without extensive manual testing.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-500 border-t border-slate-200 pt-8">
+            <p class="mb-2">#PowerPlatform #PowerAutomate #GPT #FlowAnalysis #LowCode #Productivity</p>
+            <p class="text-sm">Interactive guide created to simplify technical documentation.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        const tabStandard = document.getElementById('tab-standard');
+        const tabAdvanced = document.getElementById('tab-advanced');
+        const contentStandard = document.getElementById('content-standard');
+        const contentAdvanced = document.getElementById('content-advanced');
+        const copyBtn = document.getElementById('copy-btn');
+        const apiEndpoint = document.getElementById('api-endpoint');
+
+        function switchTab(activeTab, inactiveTab, activeContent, inactiveContent) {
+            activeTab.classList.remove('tab-inactive');
+            activeTab.classList.add('tab-active');
+            inactiveTab.classList.remove('tab-active');
+            inactiveTab.classList.add('tab-inactive');
+
+            activeContent.classList.remove('hidden');
+            inactiveContent.classList.add('hidden');
+        }
+
+        tabStandard.addEventListener('click', () => {
+            switchTab(tabStandard, tabAdvanced, contentStandard, contentAdvanced);
+        });
+
+        tabAdvanced.addEventListener('click', () => {
+            switchTab(tabAdvanced, tabStandard, contentAdvanced, contentStandard);
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = apiEndpoint.innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                copyBtn.innerText = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.innerText = 'Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+            document.body.removeChild(tempTextArea);
+        });
+    </script>
+</body>
+</html>
